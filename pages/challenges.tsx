@@ -8,34 +8,23 @@ export default function challenges() {
 
   async function goToProject() {
     let test = "testhfjbdjhbfgdjh";
-    // originalProject = await sdk.embedGithubProject(
-    //   "embed",
-    //   "scottschindler/coding-challenges",
-    //   {
-    //     height: 400,
-    //     //   openFile: `userId/${test}.js`,
-    //     openFile: "pages/index.tsx",
-    //     //   openFile: angular.openFile,
-    //   }
-    // );
+    originalProject = await sdk.embedGithubProject(
+      "embed",
+      "scottschindler/coding-challenges",
+      {
+        height: 400,
+        openFile: "pages/index.tsx",
+      }
+    );
 
-    sdk.openGithubProject("scottschindler/coding-challenges", {
-      newWindow: true,
+    await originalProject.applyFsDiff({
+      create: {
+        "testing.js": test,
+      },
+      destroy: [],
     });
-
-    // sdk.openProjectId("nextjs-7kdwma", {
-    //   newWindow: true,
-    //   view: "editor",
-    // });
-
-    // await originalProject.applyFsDiff({
-    //   create: {
-    //     "testing.js": test,
-    //   },
-    //   destroy: [Object.keys(originalProject).flat()],
-    // });
-    // const files = await originalProject.getFsSnapshot();
-    // console.log(files);
+    const files = await originalProject.getFsSnapshot();
+    console.log(files);
   }
 
   const router = useRouter();
@@ -95,14 +84,14 @@ export default function challenges() {
         embedNewProjectWithFiles
       </button>
       <button onClick={getURL}>get URL</button>
-      <iframe
+      {/* <iframe
         src="https://codesandbox.io/embed/currying-sky-1pjgpd?fontsize=14&hidenavigation=1&theme=dark"
         // style={{width:"100%", height:"500px", border:0, border-radius: "4px", overflow:"hidden"}}
         style={{ width: "100%", height: "500px", border: 0 }}
         title="currying-sky-1pjgpd"
         allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-      ></iframe>
+      ></iframe> */}
     </div>
   );
 }
